@@ -1,0 +1,337 @@
+/* HR AI Agent 설문 — Qualtrics/GitHub 스타일 */
+
+:root {
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --border: #d0d7de;
+  --text: #1f2328;
+  --text-muted: #57606a;
+  --primary: #0969da;
+  --primary-hover: #0550ae;
+  --success: #1a7f37;
+  --danger: #cf222e;
+  --radius: 6px;
+  --shadow: 0 1px 3px rgba(0,0,0,.06);
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+.survey-wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* Header */
+.survey-header {
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.survey-header h1 {
+  margin: 0 0 8px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.survey-id-display {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.survey-id-display strong {
+  color: var(--text);
+  font-family: ui-monospace, monospace;
+  letter-spacing: 0.02em;
+}
+
+.intro {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Sections */
+.survey-section {
+  margin-bottom: 32px;
+}
+
+.survey-section h2 {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.section-desc {
+  margin: -8px 0 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Fieldset */
+fieldset.block {
+  margin: 0 0 24px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+fieldset.block legend {
+  padding: 0 8px 0 0;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.field-desc,
+.sub-legend {
+  margin: 8px 0 10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.sub-legend {
+  margin-top: 16px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.optional {
+  font-weight: normal;
+  color: var(--text-muted);
+}
+
+.example {
+  font-weight: normal;
+  color: var(--text-muted);
+}
+
+/* Labels & inputs */
+label {
+  display: block;
+  margin: 14px 0 6px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+label:first-of-type {
+  margin-top: 0;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color .15s ease;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(9, 105, 218, .15);
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Checkbox / Radio */
+.checkbox-group,
+.radio-group {
+  margin: 10px 0 0;
+}
+
+.checkbox-group.compact .checkbox-label,
+.part2-block .checkbox-label {
+  margin-top: 6px;
+}
+
+.checkbox-label,
+.radio-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 8px 0 0;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.checkbox-label input,
+.radio-label input {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.radio-group .radio-label {
+  margin-top: 6px;
+}
+
+/* Dynamic list (+ add more) */
+.dynamic-list {
+  margin-top: 16px;
+}
+
+.dynamic-list > label {
+  margin-bottom: 8px;
+}
+
+.dynamic-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dynamic-item {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dynamic-item input {
+  flex: 1;
+}
+
+.btn-add {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--primary);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+
+.btn-add:hover {
+  background: var(--bg);
+  border-color: var(--primary);
+}
+
+/* Score display */
+.score-display {
+  margin: 16px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text);
+}
+
+.score-display.total {
+  margin-top: 12px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* Submit */
+.form-actions {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  text-align: center;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background .15s, border-color .15s;
+}
+
+.btn-primary {
+  color: #fff;
+  background: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Footer */
+.survey-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  padding: 12px 20px;
+  font-size: 14px;
+  color: #fff;
+  background: var(--text);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  opacity: 0;
+  transition: transform .25s ease, opacity .25s ease;
+  z-index: 1000;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+.toast.success {
+  background: var(--success);
+}
+
+.toast.error {
+  background: var(--danger);
+}
+
+@media (max-width: 640px) {
+  .survey-wrapper {
+    padding: 16px 12px 32px;
+  }
+
+  fieldset.block {
+    padding: 16px;
+  }
+}

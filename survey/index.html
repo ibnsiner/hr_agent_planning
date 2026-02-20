@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HR AI Agent 도입 기획안 및 타당성 사전 평가</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="survey-wrapper">
+    <header class="survey-header">
+      <h1>HR AI Agent 도입 기획안 및 타당성 사전 평가</h1>
+      <p class="survey-id-display">설문 ID: <strong id="survey-id"></strong></p>
+      <p class="intro">현업의 기획안(Part 1)과 자가 진단 평가표(Part 2)를 작성해 주시면, Google Sheet에 설문 ID별로 저장됩니다.</p>
+    </header>
+
+    <form id="hr-survey" class="survey-form" novalidate>
+      <!-- ========== Part 1 ========== -->
+      <section class="survey-section" aria-labelledby="part1-heading">
+        <h2 id="part1-heading">[Part 1] HR AI Agent 업무 명세서 (기획안)</h2>
+
+        <fieldset class="block">
+          <legend>기본 정보</legend>
+          <label>제안 과제명 <span class="example">(예: 채용 면접 일정 자동 조율 및 안내 Agent)</span></label>
+          <input type="text" name="P1_title" id="P1_title" placeholder="과제명을 입력하세요" />
+
+          <label>제안 부서 및 담당자</label>
+          <input type="text" name="P1_dept" id="P1_dept" placeholder="부서명 / 담당자명" />
+
+          <label>최종 사용자 (User) <span class="example">(예: 채용담당자, 전 임직원 등)</span></label>
+          <input type="text" name="P1_user" id="P1_user" placeholder="최종 사용자" />
+        </fieldset>
+
+        <fieldset class="block">
+          <legend>1. 작동 조건 및 트리거 (Trigger)</legend>
+          <p class="field-desc">실행되는 구체적인 시점 또는 조건을 선택해 주세요.</p>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" name="P1_trigger_manual" value="1" /> 사용자 수동 실행 (화면에서 직접 명령)</label>
+            <label class="checkbox-label"><input type="checkbox" name="P1_trigger_schedule" value="1" /> 스케줄링 정기 배치 (예: 매월 25일 오전 9시)</label>
+            <label class="checkbox-label"><input type="checkbox" name="P1_trigger_event" value="1" /> 이벤트 연동 (타 시스템 조건/이벤트 발생 시)</label>
+          </div>
+          <label>기타 (직접 입력)</label>
+          <input type="text" name="P1_trigger_etc" id="P1_trigger_etc" placeholder="해당 시 기재" />
+        </fieldset>
+
+        <fieldset class="block">
+          <legend>2. 필요 데이터 및 참조 리소스 (Input & Reference)</legend>
+          <label>사용자 입력 데이터</label>
+          <input type="text" name="P1_input_user" id="P1_input_user" placeholder="예: 담당자가 입력한 서류 합격자 명단 10명" />
+
+          <label>참조 시스템/데이터 1</label>
+          <input type="text" name="P1_ref_sys1" id="P1_ref_sys1" placeholder="예: 사내 그룹웨어 / 면접관 캘린더" />
+
+          <label>참조 시스템/데이터 2</label>
+          <input type="text" name="P1_ref_sys2" id="P1_ref_sys2" placeholder="예: 채용 시스템(ATS) / 후보자 연락처 DB" />
+
+          <div class="dynamic-list" data-name="P1_ref_sys_more">
+            <label>참조 시스템/데이터 추가</label>
+            <div class="dynamic-items">
+              <div class="dynamic-item">
+                <input type="text" name="P1_ref_sys_more[]" placeholder="추가 참조 시스템 또는 데이터" />
+                <button type="button" class="btn-add" aria-label="항목 추가">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="dynamic-list" data-name="P1_ref_doc">
+            <label>참조 규정/문서</label>
+            <div class="dynamic-items">
+              <div class="dynamic-item">
+                <input type="text" name="P1_ref_doc[]" placeholder="예: 사내 위키, 2024 복리후생 가이드라인 PDF" />
+                <button type="button" class="btn-add" aria-label="항목 추가">+</button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="block">
+          <legend>3. 데이터 처리 및 분석 방식 (Process Logic) <span class="optional">선택</span></legend>
+          <p class="field-desc">어떤 기준으로 산출물을 낼지 현업 관점에서 기술해 주세요.</p>
+          <textarea name="P1_logic" id="P1_logic" rows="4" placeholder="예: 지원자 이력서에서 직무 경험 키워드 추출·빈도 산출 / 최근 3개월 초과근무 대비 20% 이상 초과 인원 필터링"></textarea>
+        </fieldset>
+
+        <fieldset class="block">
+          <legend>4. AI 자율 수행 워크플로우 (Step-by-Step)</legend>
+          <label>Step 1</label>
+          <input type="text" name="P1_step1" id="P1_step1" placeholder="첫 번째 단계" />
+
+          <label>Step 2</label>
+          <input type="text" name="P1_step2" id="P1_step2" placeholder="두 번째 단계" />
+
+          <label>Step 3</label>
+          <input type="text" name="P1_step3" id="P1_step3" placeholder="세 번째 단계" />
+
+          <div class="dynamic-list" data-name="P1_step_more">
+            <label>Step 추가</label>
+            <div class="dynamic-items">
+              <div class="dynamic-item">
+                <input type="text" name="P1_step_more[]" placeholder="Step 4, 5 …" />
+                <button type="button" class="btn-add" aria-label="항목 추가">+</button>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="block">
+          <legend>5. 최종 산출물 및 후속 프로세스 연계</legend>
+          <label>최종 산출물 형태</label>
+          <input type="text" name="P1_output" id="P1_output" placeholder="예: 초과근무 이상자 명단 엑셀, 이메일 초안" />
+
+          <p class="field-desc">후속 프로세스 연계 방식 (해당하는 항목 모두 선택)</p>
+          <div class="checkbox-group">
+            <label class="checkbox-label"><input type="checkbox" name="P1_next_L1" value="1" /> 단순 정보 제공 (화면 표출 후 종료)</label>
+            <label class="checkbox-label"><input type="checkbox" name="P1_next_L2" value="1" /> 초안 작성 및 승인 대기 (승인 버튼 시 후속 진행)</label>
+            <label class="checkbox-label"><input type="checkbox" name="P1_next_L3" value="1" /> 내부 시스템 자동 반영 (ERP 등 데이터/상태 변경)</label>
+            <label class="checkbox-label"><input type="checkbox" name="P1_next_L4" value="1" /> 외부 자동 발송 (이메일, 사내 메신저 등)</label>
+          </div>
+        </fieldset>
+      </section>
+
+      <!-- ========== Part 2 ========== -->
+      <section class="survey-section" aria-labelledby="part2-heading">
+        <h2 id="part2-heading">[Part 2] HR AI Agent 도입 타당성 자가 진단표</h2>
+        <p class="section-desc">증명 가능한 항목에만 '예(Yes)'로 체크해 주세요. Yes 개수가 해당 영역 점수가 됩니다.</p>
+
+        <fieldset class="block part2-block">
+          <legend>A. 비즈니스 임팩트 (Value) — 총 15점</legend>
+          <p class="sub-legend">V1. 비용 절감 및 업무 효율</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="V1_1" value="1" data-group="V1" /> 기획안 도입 시 투입 시간/예산 획기적 절감</label>
+            <label class="checkbox-label"><input type="checkbox" name="V1_2" value="1" data-group="V1" /> 결재·통제 연계로 불필요 예산/수당 사전 차단</label>
+            <label class="checkbox-label"><input type="checkbox" name="V1_3" value="1" data-group="V1" /> 전사 경영 지표 또는 부서 효율 지표와 연계</label>
+            <label class="checkbox-label"><input type="checkbox" name="V1_4" value="1" data-group="V1" /> 현재 투입 리소스(시간/비용) As-Is 데이터 존재</label>
+            <label class="checkbox-label"><input type="checkbox" name="V1_5" value="1" data-group="V1" /> 적용 범위 전사 또는 사업부/직무 전체</label>
+          </div>
+          <p class="sub-legend">V2. 사용 빈도 및 반복성</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="V2_1" value="1" data-group="V2" /> 해당 업무/요청 월 1회 이상 정기 발생</label>
+            <label class="checkbox-label"><input type="checkbox" name="V2_2" value="1" data-group="V2" /> 수시 데이터 추출·문서 요청으로 상시 대응 부담</label>
+            <label class="checkbox-label"><input type="checkbox" name="V2_3" value="1" data-group="V2" /> 원시 데이터 다운로드 후 수작업 반복</label>
+            <label class="checkbox-label"><input type="checkbox" name="V2_4" value="1" data-group="V2" /> 산출물이 정기 회의 공식 안건/보고 자료로 사용</label>
+            <label class="checkbox-label"><input type="checkbox" name="V2_5" value="1" data-group="V2" /> 급여·평가·발령 등 타 HR 필수 입력 데이터로 사용</label>
+          </div>
+          <p class="sub-legend">V3. 의사결정 및 프로세스 파급력</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="V3_1" value="1" data-group="V3" /> 산출물이 의사결정 기준 또는 수작업 단계 대체</label>
+            <label class="checkbox-label"><input type="checkbox" name="V3_2" value="1" data-group="V3" /> 결과에 따라 후속 업무 수동 개입 없이 자동 연계</label>
+            <label class="checkbox-label"><input type="checkbox" name="V3_3" value="1" data-group="V3" /> 타 부서/임원진이 공식 업무 협의 근거로 사용</label>
+            <label class="checkbox-label"><input type="checkbox" name="V3_4" value="1" data-group="V3" /> 법정/SLA 기한 준수율 직접 개선</label>
+            <label class="checkbox-label"><input type="checkbox" name="V3_5" value="1" data-group="V3" /> 대안 추천·가공 산출물로 즉시 후속 액션 가능</label>
+          </div>
+          <p class="score-display">A. 비즈니스 임팩트: <strong id="score-value">0</strong> / 15점</p>
+        </fieldset>
+
+        <fieldset class="block part2-block">
+          <legend>B. 실행 가능성 (Feasibility) — 총 20점</legend>
+          <p class="sub-legend">F1. 내부 데이터 준비도</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="F1_1" value="1" data-group="F1" /> API/DB 등 데이터 자동 연동 기획</label>
+            <label class="checkbox-label"><input type="checkbox" name="F1_2" value="1" data-group="F1" /> 사번·조직코드 등 식별 기준값 일치, 수동 정제 불필요</label>
+            <label class="checkbox-label"><input type="checkbox" name="F1_3" value="1" data-group="F1" /> 시점 스냅샷 데이터 과거 기록 보존</label>
+            <label class="checkbox-label"><input type="checkbox" name="F1_4" value="1" data-group="F1" /> 원본 산출 기준·용어 문서화 및 유관 부서 합의</label>
+            <label class="checkbox-label"><input type="checkbox" name="F1_5" value="1" data-group="F1" /> 최소 요구 기간 과거 데이터 단절 없이 축적</label>
+          </div>
+          <p class="sub-legend">F2. 분석 로직 구체화</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="F2_1" value="1" data-group="F2" /> 워크플로우(어떤 데이터로 연산/분류) 명세</label>
+            <label class="checkbox-label"><input type="checkbox" name="F2_2" value="1" data-group="F2" /> 필수 Input 항목 단위·기간 확정</label>
+            <label class="checkbox-label"><input type="checkbox" name="F2_3" value="1" data-group="F2" /> 최종 산출물 레이아웃·구성 정의</label>
+            <label class="checkbox-label"><input type="checkbox" name="F2_4" value="1" data-group="F2" /> 정량 목표 수치(오차율, 일치율 등) 설정</label>
+            <label class="checkbox-label"><input type="checkbox" name="F2_5" value="1" data-group="F2" /> As-Is 실적(리드타임, 오차율 등) 데이터 존재</label>
+          </div>
+          <p class="sub-legend">F3. 검증 및 오류 확인</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="F3_1" value="1" data-group="F3" /> 정합성 대조용 기준 데이터 존재</label>
+            <label class="checkbox-label"><input type="checkbox" name="F3_2" value="1" data-group="F3" /> 정상 범위 이탈 자동 검증 로직 기획</label>
+            <label class="checkbox-label"><input type="checkbox" name="F3_3" value="1" data-group="F3" /> 전월/전년 등 과거 시점 비교 구조</label>
+            <label class="checkbox-label"><input type="checkbox" name="F3_4" value="1" data-group="F3" /> 장애 시 이전 버전 원복(Roll-back) 방안</label>
+            <label class="checkbox-label"><input type="checkbox" name="F3_5" value="1" data-group="F3" /> 현업 정답/오답 Feedback 채널 기획</label>
+          </div>
+          <p class="sub-legend">F4. 운영 및 배포 인프라</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="F4_1" value="1" data-group="F4" /> 유지보수 담당 부서(Owner)·서비스 채널 확정</label>
+            <label class="checkbox-label"><input type="checkbox" name="F4_2" value="1" data-group="F4" /> 역할 기반 접근 권한 HR 시스템 연동</label>
+            <label class="checkbox-label"><input type="checkbox" name="F4_3" value="1" data-group="F4" /> 실행 주체·시간·조건 등 사용 이력 Log 기록</label>
+            <label class="checkbox-label"><input type="checkbox" name="F4_4" value="1" data-group="F4" /> 장애 시 IT-SLA 복구 채널 마련</label>
+            <label class="checkbox-label"><input type="checkbox" name="F4_5" value="1" data-group="F4" /> 결과 반영 전 사람 최종 승인 워크플로우 설계</label>
+          </div>
+          <p class="score-display">B. 실행 가능성: <strong id="score-feasibility">0</strong> / 20점</p>
+        </fieldset>
+
+        <fieldset class="block part2-block">
+          <legend>C. 위험 통제력 (Risk Manageability) — 총 15점</legend>
+          <p class="sub-legend">Rk1. 민감정보 보호 및 보안</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="Rk1_1" value="1" data-group="Rk1" /> 부서/직군 통계만으로 목적 달성 가능</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk1_2" value="1" data-group="Rk1" /> 직책·역할별 열람 범위 엄격 통제</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk1_3" value="1" data-group="Rk1" /> 연봉·평가등급 등 초민감 정보 마스킹</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk1_4" value="1" data-group="Rk1" /> 민감 정보 조회 로그·감사 요건 충족</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk1_5" value="1" data-group="Rk1" /> 외부 반출 없이 사내 내부망 운영 설계</label>
+          </div>
+          <p class="sub-legend">Rk2. 설명 가능성 (Explainability)</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="Rk2_1" value="1" data-group="Rk2" /> 산출 근거 100% 역추적·현업 언어로 설명 가능</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk2_2" value="1" data-group="Rk2" /> 주요 영향 요인(변수) 시각적 제공</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk2_3" value="1" data-group="Rk2" /> 동일 조건 시 일관된 결과 산출</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk2_4" value="1" data-group="Rk2" /> 의사결정 보조 자료·가이드라인 제공</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk2_5" value="1" data-group="Rk2" /> 편향·오독 가능성 사전 고지 방안</label>
+          </div>
+          <p class="sub-legend">Rk3. 오류 통제 및 비상 대책 (BCP)</p>
+          <div class="checkbox-group compact">
+            <label class="checkbox-label"><input type="checkbox" name="Rk3_1" value="1" data-group="Rk3" /> 상/하한 범위 이탈 시 자동 실행 차단 가드레일</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk3_2" value="1" data-group="Rk3" /> 결측·이상값 탐지 시 담당자 Alert 발송</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk3_3" value="1" data-group="Rk3" /> 외부 발송·시스템 반영 시 사전 육안 검토(승인)</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk3_4" value="1" data-group="Rk3" /> 전사 동시 도입 아닌 파일럿 점진 배포 계획</label>
+            <label class="checkbox-label"><input type="checkbox" name="Rk3_5" value="1" data-group="Rk3" /> 장애 시 기존 수작업(엑셀 등) 플랜 B 존재</label>
+          </div>
+          <p class="score-display">C. 위험 통제력: <strong id="score-risk">0</strong> / 15점</p>
+        </fieldset>
+
+        <fieldset class="block">
+          <legend>종합 산출 및 자율성(LoA) 허들 판정</legend>
+          <p class="score-display total">종합 우선순위 점수: <strong id="score-total">0</strong> / 50점</p>
+
+          <label>자율성(LoA) 통제 허들 검증 — 목표 수준 선택</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="LoA_target" value="L4L5" /> Target L4~L5 (내부 시스템 자동 반영 / 외부 자동 발송) — Risk 12점 이상 필요</label>
+            <label class="radio-label"><input type="radio" name="LoA_target" value="L2L3" /> Target L2~L3 (초안 작성 및 승인 대기) — Risk 9점 이상 필요</label>
+            <label class="radio-label"><input type="radio" name="LoA_target" value="L1" /> Target L1 (단순 정보 제공) — Risk 무관 자동 통과</label>
+          </div>
+
+          <label>Risk 허들 충족 여부</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="LoA_risk_pass" value="Y" /> 예 (충족)</label>
+            <label class="radio-label"><input type="radio" name="LoA_risk_pass" value="N" /> 아니오 (미달)</label>
+          </div>
+
+          <label>최종 판정 결과</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="result" value="Pass" /> Pass (승인)</label>
+            <label class="radio-label"><input type="radio" name="result" value="Fail" /> Fail (반려 및 보완)</label>
+          </div>
+
+          <label>비고 (선택)</label>
+          <textarea name="memo" id="memo" rows="2" placeholder="추가 의견이나 보완 계획 등"></textarea>
+        </fieldset>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">제출하기 (Google Sheet 저장)</button>
+        </div>
+      </section>
+    </form>
+
+    <footer class="survey-footer">
+      <p>제출 후 화면에 표시되는 설문 ID로 Google Sheet에서 해당 응답을 확인할 수 있습니다.</p>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
