@@ -12,7 +12,7 @@
   --danger: #cf222e;
   --radius: 6px;
   --shadow: 0 1px 3px rgba(0,0,0,.06);
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", Helvetica, Arial, sans-serif;
+  --font-sans: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -22,7 +22,7 @@
 body {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.5;
   color: var(--text);
   background: var(--bg);
@@ -30,9 +30,9 @@ body {
 }
 
 .survey-wrapper {
-  max-width: 720px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 24px 20px 48px;
+  padding: 24px 28px 48px;
 }
 
 /* Header */
@@ -51,7 +51,7 @@ body {
 
 .survey-id-display {
   margin: 0 0 12px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 
@@ -63,7 +63,7 @@ body {
 
 .intro {
   margin: 0;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 
@@ -74,14 +74,14 @@ body {
 
 .survey-section h2 {
   margin: 0 0 16px;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   font-weight: 600;
   color: var(--text);
 }
 
 .section-desc {
   margin: -8px 0 20px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 
@@ -104,7 +104,7 @@ fieldset.block legend {
 .field-desc,
 .sub-legend {
   margin: 8px 0 10px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 
@@ -140,8 +140,8 @@ input[type="text"],
 input[type="email"],
 textarea {
   width: 100%;
-  padding: 8px 12px;
-  font-size: 14px;
+  padding: 10px 14px;
+  font-size: 17px;
   font-family: inherit;
   color: var(--text);
   background: var(--surface);
@@ -243,13 +243,13 @@ textarea {
   margin: 16px 0 0;
   padding-top: 12px;
   border-top: 1px solid var(--border);
-  font-size: 14px;
+  font-size: 17px;
   color: var(--text);
 }
 
 .score-display.total {
   margin-top: 12px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 500;
 }
 
@@ -262,8 +262,8 @@ textarea {
 
 .btn {
   display: inline-block;
-  padding: 10px 20px;
-  font-size: 14px;
+  padding: 12px 24px;
+  font-size: 17px;
   font-weight: 500;
   font-family: inherit;
   text-align: center;
@@ -292,7 +292,7 @@ textarea {
 .survey-footer {
   margin-top: 32px;
   padding-top: 16px;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--text-muted);
 }
 
@@ -302,8 +302,8 @@ textarea {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%) translateY(80px);
-  padding: 12px 20px;
-  font-size: 14px;
+  padding: 14px 22px;
+  font-size: 17px;
   color: #fff;
   background: var(--text);
   border-radius: var(--radius);
