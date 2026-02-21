@@ -26,10 +26,11 @@
           base = (lastSegment.indexOf('.') !== -1) ? u.replace(/\/[^\/]*$/, '/') : u + '/';
         }
       }
+      var v = '2';
       var link = document.getElementById('main-styles');
-      if (link) link.href = base + 'styles.css';
+      if (link) link.href = base + 'styles.css?v=' + v;
       var s = document.createElement('script');
-      s.src = base + 'script.js';
+      s.src = base + 'script.js?v=' + v;
       s.defer = true;
       document.head.appendChild(s);
     })();
