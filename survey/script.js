@@ -171,7 +171,7 @@
       showToast('Google Sheets 연동 URL이 설정되지 않았습니다. script.js의 SUBMIT_URL을 설정한 뒤 다시 시도해 주세요.', 'error');
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.textContent = '제출하기 (Google Sheet 저장)';
+        submitBtn.textContent = '제출하기';
       }
       console.warn('설문 데이터(미전송):', data);
       return;
