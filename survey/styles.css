@@ -156,6 +156,11 @@ fieldset.block legend {
   line-height: 1.6;
 }
 
+.field-desc.sub {
+  margin: 4px 0 8px;
+  font-size: 14px;
+}
+
 .sub-legend {
   margin-top: 16px;
   font-weight: 500;
@@ -182,6 +187,10 @@ label {
 
 label:first-of-type {
   margin-top: 0;
+}
+
+label.trigger-etc {
+  margin-top: 20px;
 }
 
 input[type="text"],
