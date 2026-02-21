@@ -11,7 +11,13 @@
   <script>
     (function() {
       var url = document.URL.replace(/#.*$/, '').replace(/\?.*$/, '');
-      var base = url.endsWith('/') ? url : url.replace(/\/[^\/]*$/, '/');
+      var base;
+      if (url.endsWith('/')) {
+        base = url;
+      } else {
+        var lastSegment = url.split('/').pop();
+        base = (lastSegment.indexOf('.') !== -1) ? url.replace(/\/[^\/]*$/, '/') : url + '/';
+      }
       var link = document.getElementById('main-styles');
       if (link) link.href = base + 'styles.css';
       var s = document.createElement('script');
