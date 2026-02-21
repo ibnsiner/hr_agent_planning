@@ -41,38 +41,8 @@
     }, 4000);
   }
 
-  // ——— 동적 항목 추가 (+) ———
+  // ——— 동적 항목 추가 (+) ———  // + 클릭 시 1행만 추가 (이벤트 위임만 사용)
   function initDynamicLists() {
-    document.querySelectorAll('.dynamic-list').forEach(function (block) {
-      var container = block.querySelector('.dynamic-items');
-      var firstItem = block.querySelector('.dynamic-item');
-      if (!container || !firstItem) return;
-
-      block.querySelectorAll('.btn-add').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var clone = firstItem.cloneNode(true);
-          var input = clone.querySelector('input');
-          if (input) {
-            input.value = '';
-            input.name = firstItem.querySelector('input').name;
-          }
-          clone.querySelectorAll('.btn-add').forEach(function (b) {
-            b.addEventListener('click', function () {
-              var next = b.closest('.dynamic-item').cloneNode(true);
-              next.querySelector('input').value = '';
-              next.querySelector('input').name = firstItem.querySelector('input').name;
-              next.querySelectorAll('.btn-add').forEach(function (addBtn) {
-                addBtn.addEventListener('click', arguments.callee);
-              });
-              container.appendChild(next);
-            });
-          });
-          container.appendChild(clone);
-        });
-      });
-    });
-
-    // 단일 “+” 버튼 기준: 해당 행 옆 + 클릭 시 새 행 추가
     document.querySelectorAll('.dynamic-list').forEach(function (block) {
       var container = block.querySelector('.dynamic-items');
       var template = block.querySelector('.dynamic-item');
@@ -81,9 +51,13 @@
       container.addEventListener('click', function (e) {
         if (!e.target.classList.contains('btn-add')) return;
         e.preventDefault();
+        e.stopPropagation();
         var newRow = template.cloneNode(true);
-        newRow.querySelector('input').value = '';
-        newRow.querySelector('input').name = template.querySelector('input').name;
+        var inp = newRow.querySelector('input');
+        if (inp) {
+          inp.value = '';
+          inp.name = template.querySelector('input').name;
+        }
         container.appendChild(newRow);
       });
     });
@@ -136,6 +110,7 @@
       timestamp: new Date().toISOString(),
       P1_title: (form.P1_title && form.P1_title.value) ? form.P1_title.value.trim() : '',
       P1_dept: (form.P1_dept && form.P1_dept.value) ? form.P1_dept.value.trim() : '',
+      P1_contact: (form.P1_contact && form.P1_contact.value) ? form.P1_contact.value.trim() : '',
       P1_user: (form.P1_user && form.P1_user.value) ? form.P1_user.value.trim() : '',
       P1_trigger_manual: form.P1_trigger_manual && form.P1_trigger_manual.checked ? '1' : '0',
       P1_trigger_schedule: form.P1_trigger_schedule && form.P1_trigger_schedule.checked ? '1' : '0',
@@ -231,7 +206,7 @@
   });
 
   // 초기화
-  surveyIdEl.textContent = getOrCreateSurveyId();
+  if (surveyIdEl) surveyIdEl.textContent = getOrCreateSurveyId();
   initDynamicLists();
   updateScores();
 })();

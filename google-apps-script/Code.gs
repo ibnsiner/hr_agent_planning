@@ -45,7 +45,7 @@ function buildRow(params) {
 function HEADERS() {
   return [
     'survey_id', 'timestamp',
-    'P1_title', 'P1_dept', 'P1_user',
+    'P1_title', 'P1_dept', 'P1_contact', 'P1_user',
     'P1_trigger_manual', 'P1_trigger_schedule', 'P1_trigger_event', 'P1_trigger_etc',
     'P1_input_user', 'P1_ref_sys1', 'P1_ref_sys2', 'P1_ref_sys_more', 'P1_ref_doc',
     'P1_logic', 'P1_step1', 'P1_step2', 'P1_step3', 'P1_step_more',
