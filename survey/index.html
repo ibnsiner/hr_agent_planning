@@ -7,16 +7,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css" id="main-styles" />
+  <link rel="stylesheet" id="main-styles" />
   <script>
     (function() {
-      var url = document.URL.replace(/#.*$/, '').replace(/\?.*$/, '');
+      var u = document.URL.replace(/#.*$/, '').replace(/\?.*$/, '');
       var base;
-      if (url.endsWith('/')) {
-        base = url;
+      if (typeof location !== 'undefined' && location.hostname && location.hostname.indexOf('github.io') !== -1) {
+        var path = location.pathname || '';
+        if (path.indexOf('/survey') !== -1) {
+          base = location.origin + (path.replace(/\/survey.*$/, '/survey').replace(/\/$/, '') + '/');
+        } else {
+          base = u.endsWith('/') ? u : u + '/';
+        }
       } else {
-        var lastSegment = url.split('/').pop();
-        base = (lastSegment.indexOf('.') !== -1) ? url.replace(/\/[^\/]*$/, '/') : url + '/';
+        if (u.endsWith('/')) base = u;
+        else {
+          var lastSegment = (u.split('/').pop() || '');
+          base = (lastSegment.indexOf('.') !== -1) ? u.replace(/\/[^\/]*$/, '/') : u + '/';
+        }
       }
       var link = document.getElementById('main-styles');
       if (link) link.href = base + 'styles.css';
